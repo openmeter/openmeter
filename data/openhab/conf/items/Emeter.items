@@ -1,0 +1,14 @@
+DateTime Date "Date [%1$tA, %1$td.%1$tm.%1$tY %1$tH:%1$tM]" <time> {channel="ntp:ntp:local:dateTime"}
+Number Gasmeter "Gasmeter [%.2f m3]" <gas> {channel="mqtt:topic:bc310caa:1"}
+Number Gas_m3_At_Midnight "Gas m3 at midnight"
+Number Gas_m3_Today "Gas m3 comsuption Today" <radiator>
+Number:Energy TotalKwhDayUsed "Total kWh dag afname" <energy> {channel="mqtt:topic:bc310caa:2"}
+Number:Energy TotalKwhNightUsed "Total kWh nacht afname" <energy> {channel="mqtt:topic:bc310caa:3"}
+Number:Energy TotalKwhDayReturned "Total kWh dag injectie" <sun> {channel="mqtt:topic:bc310caa:4"}
+Number:Energy TotalKwhNightReturned "Total kWh nacht injectie" <sun> {channel="mqtt:topic:bc310caa:5"}
+Number:Energy TotalKwhNetto "Total kWh from Grid" <piggybank>
+Number:Power ActualPowerUsed "Actual power used" <poweroutlet> {channel="mqtt:topic:bc310caa:6"}
+Number:Power ActualPowerReturned "Actual power returned" <battery>{channel="mqtt:topic:bc310caa:7"}
+Number ActualVoltage "Ac voltage" <poweroutlet> {channel="mqtt:topic:bc310caa:8"}
+Number ActualCurrent "Ac current" <poweroutlet> {channel="mqtt:topic:bc310caa:9"}
+Number:Power ActualNettoPowerUsed "Actual Netto power used" <poweroutlet> 

@@ -1,0 +1,11 @@
+Strategies {
+    everyMinute	: "0 * * * * ?"
+    everyHour	: "0 0 * * * ?"
+    everyDay	: "0 0 0 * * ?"
+
+    default = everyMinute, everyChange, everyUpdate
+}
+Items {
+    ActualPowerUsed:strategy = everyMinute
+    Gasmeter:strategy = everyHour
+}

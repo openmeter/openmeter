@@ -1,0 +1,74 @@
+version: '2'
+services:
+
+    dsmr_sim:
+        image: openmeter/dsmr_sim:0.3
+        container_name: dsmr_sim
+        networks:
+            - backend
+        depends_on: 
+            - mqtt_broker
+        ## ports: not needed since this is mqtt client
+        restart: always
+        volumes:
+            - /openmeter/data/dsmr_sim:/dsmr_sim
+    
+    mqtt_broker:
+        image: openmeter/mqtt_broker:0.4
+        container_name: mqtt_broker
+        networks:
+            - backend
+        user: "1883"
+        ports:
+            - 1883:1883
+            - 9001:9001
+        volumes: 
+            - /openmeter/data/mqtt_broker/data:/mosquitto/data
+            - /openmeter/data/mqtt_broker/log:/mosquitto/log
+            - /openmeter/data/mqtt_broker/config:/mosquitto/config
+        restart: always
+    
+    openhab:
+        image: openhab/openhab:2.5.5
+        container_name: openhab
+        networks:
+            - backend
+        ports:
+            - 8080:8080
+            - 8443:8443
+            - 8101:8101
+            - 5007:5007
+            - 3671:3671
+            - 3671:3671/udp
+            - 1012:1012
+        depends_on:
+            - mqtt_broker
+            - influxdb
+        restart: unless-stopped
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
+            - /openmeter/data/openhab/addons:/openhab/addons
+            - /openmeter/data/openhab/conf:/openhab/conf
+            - /openmeter/data/openhab/userdata:/openhab/userdata
+        environment:
+            OPENHAB_HTTP_PORT: "8080"
+            OPENHAB_HTTPS_PORT: "8443"
+            EXTRA_JAVA_OPTS: "-Duser.timezone=Europe/Brussels"    
+
+    influxdb:
+        image: influxdb
+        container_name: influxdb
+        networks:
+            - backend
+        ports:
+            - 8086:8086
+        restart: always
+        volumes:
+            - /openmeter/data/influxdb/db:/var/lib/influxdb/data
+
+networks:
+    backend:
+        driver: bridge
+    frontend:
+        driver: bridge 
