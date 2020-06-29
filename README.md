@@ -41,7 +41,7 @@ docker-compose up -d
 
 #  5. Run it
 
-<img src="./img/openhab_dashboard_iphone.jpg" alt="select image and start flash" width="500px">
+<img src="./img/openhab_dashboard_iphone.jpg" alt="select image and start flash" width="400px">
 
 #  6. Extra info about:
 * [Influxdb](INFLUXDB.md)
