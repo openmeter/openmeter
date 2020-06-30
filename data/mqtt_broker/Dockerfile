@@ -8,7 +8,7 @@ EXPOSE 1883 9001
 # expose these ports on the docker virtual network
 # you still need to use -p or -P to open/forward these ports on host
 
-COPY /openmeter/data/mqtt_broker/config/mosquitto.conf /mosquitto/config/mosquitto.conf
+COPY ./config/mosquitto.conf /mosquitto/config/mosquitto.conf
 
 
 #RUN todo: checck if necessary
