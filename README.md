@@ -27,7 +27,7 @@ ssh pi@192.168.2.151
 cd /
 
 #clone the repository to your pi
-git clone https://github.com/openmeter/openmeter.git
+sudo git clone https://github.com/openmeter/openmeter.git
 cd /openmeter
 
 # run docker-compose

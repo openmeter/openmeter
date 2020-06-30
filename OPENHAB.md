@@ -21,9 +21,11 @@ To access your smartmeter via your Mobile App or Web:
 1. Goto https://myopenhab.org 
 2. Click on Register:
 <img src="./img/openhabcloudregister.png" alt="cloud connector" width="400px">
+
 * enter your e-mail
 * enter your password
 * to find 'uuid' and 'secret'
+
 ```bash
 # ssh into the pi
 ssh pi@yourIpAddress
@@ -43,7 +45,7 @@ sudo nano /var/lib/openhab2/openhabcloud/secrets
 
 You can get realtime logs via 'karaf'
 
-```
+``` bash
 # from the host cli (your raspberrypi)
 ssh -p 8101 openhab@192.168.32.5
 # default password = habopnen
