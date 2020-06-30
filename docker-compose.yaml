@@ -14,7 +14,7 @@ services:
             - /openmeter/data/dsmr_sim:/dsmr_sim
     
     mqtt_broker:
-        image: openmeter/mqtt_broker:0.4
+        image: openmeter/mqtt_broker:0.5
         container_name: mqtt_broker
         networks:
             - backend

@@ -1,0 +1,35 @@
+version: '2'
+services:
+
+    dsmr_sim:
+        image: openmeter/dsmr_sim:0.3
+        container_name: dsmr_sim
+        networks:
+            - backend
+        depends_on: 
+            - mqtt_broker
+        ## ports: not needed since this is mqtt client
+        restart: always
+        volumes:
+            - /openmeter/data/dsmr_sim:/dsmr_sim
+    
+    mqtt_broker:
+        image: openmeter/mqtt_broker:0.5
+        container_name: mqtt_broker
+        networks:
+            - backend
+        user: "1883"
+        ports:
+            - 1883:1883
+            - 9001:9001
+        volumes: 
+            - /openmeter/data/mqtt_broker/data:/mosquitto/data
+            - /openmeter/data/mqtt_broker/log:/mosquitto/log
+            - /openmeter/data/mqtt_broker/config:/mosquitto/config
+        restart: always
+    
+networks:
+    backend:
+        driver: bridge
+    frontend:
+        driver: bridge 
