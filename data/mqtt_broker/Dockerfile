@@ -1,5 +1,5 @@
 # mqtt_broker Dockerfile
-# version: 0.5
+# version: 0.6
 # NOTE: Dockerfile for the MQTT broker for the openmeter project
 
 FROM arm32v6/eclipse-mosquitto:1.6.9
@@ -9,6 +9,7 @@ EXPOSE 1883 9001
 # you still need to use -p or -P to open/forward these ports on host
 
 COPY ./config/mosquitto.conf /mosquitto/config/mosquitto.conf
+COPY ./log/mosquitto.log /mosquitto/log/mosquitto.log
 
 
 #RUN todo: checck if necessary

@@ -28,6 +28,7 @@ cd /
 
 #clone the repository to your pi
 sudo git clone https://github.com/openmeter/openmeter.git
+sudo chmod 777 -R openmeter 
 cd /openmeter
 
 # run docker-compose
