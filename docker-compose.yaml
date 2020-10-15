@@ -2,7 +2,7 @@ version: '3'
 services:
 
     dsmr_fluvius:
-        image: openmeter/dsmr_fluvius:0.x
+        image: openmeter/dsmr_fluvius:0.9
         container_name: dsmr_fluvius
         build:
             context: . 
