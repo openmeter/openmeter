@@ -1,24 +1,17 @@
-version: '3'
+version: '2'
 services:
 
-    dsmr_fluvius:
-        image: openmeter/dsmr_fluvius:0.x
-        container_name: dsmr_fluvius
-        build:
-            context: . 
-            target: development
-        depends_on:
-            - mqtt_broker
+    dsmr_sim:
+        image: openmeter/dsmr_sim:0.3
+        container_name: dsmr_sim
         networks:
             - backend
-         ##  1883 port: not needed since this is mqtt client inside backend network with own ip, thus not on host
-         ##  5678 port: needed to connect with debugpy from remote VScode debugging on our Mac
-        ports:
-            - 5678:5678
-        volumes:
-            - /openmeter/data/dsmr_fluvius:/dsmr_fluvius
-            - /dev/ttyUSB0:/dev/ttyUSB0
+        depends_on: 
+            - mqtt_broker
+        ## ports: not needed since this is mqtt client
         restart: always
+        volumes:
+            - /openmeter/data/dsmr_sim:/dsmr_sim
     
     mqtt_broker:
         image: openmeter/mqtt_broker:0.5
