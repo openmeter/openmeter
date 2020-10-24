@@ -1,11 +1,11 @@
 debug: False
 simulation: False
-mqtt_username: 'p1_test'
+mqtt_username: 'dsmr_fluvius'
 mqtt_password: 'password'
 mqtt_host: 'mqtt_broker'
 mqtt_topic_base: 'Home/SmartMeter'
 serial_device: '/dev/ttyUSB0'
-Serial_baudrate: 115200
+serial_baudrate: 115200
 obis:
     0-1:24.1.0:
       description: "Number of devices on the M-Bus"

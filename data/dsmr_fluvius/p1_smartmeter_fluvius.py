@@ -64,7 +64,7 @@ def read_p1(ser, mqttc, mqtt_topic_base, obis_dict):
             parse_p1_data(mqttc, mqtt_topic_base, obis_dict, line)
     else:
         # keep readeing the same testfile
-        emptyLines=0
+        emptyLines = 0
         while True:
             line = ser.readline().decode(encoding="UTF-8", errors="strict").strip()
             if line != '':
@@ -78,7 +78,7 @@ def read_p1(ser, mqttc, mqtt_topic_base, obis_dict):
                     ser.close()
                     print("Reload simulating file telegram")
                     ser = open("SM_raw.txt", 'rb')
-                    emptyLines=0
+                    emptyLines = 0
                     time.sleep(10)
 
 
@@ -248,7 +248,7 @@ def main():
     ###
     # Main
     ###
-    configfile = "./p1_fluvius_smartmeter.yaml"
+    configfile = "./p1_smartmeter_fluvius.yaml"
     # configfile = "/usr/local/etc/p1_fluvius_smartmeter.yaml"
     config = read_config(configfile)
 
@@ -309,6 +309,7 @@ def main():
         obis_dict = config["obis"]
 
         read_p1(ser, mqttc, mqtt_topic_base, obis_dict)
+
 
 if __name__ == "__main__":
     sys.exit(main())

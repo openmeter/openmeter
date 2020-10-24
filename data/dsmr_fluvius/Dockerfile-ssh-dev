@@ -1,0 +1,48 @@
+FROM python:3.9-slim-buster as base
+
+RUN mkdir /dsmr_fluvius
+
+RUN apt-get update
+
+RUN pip install pyserial
+RUN pip install pyyaml
+
+RUN pip install paho-mqtt
+
+COPY p1_smartmeter_fluvius.yaml /dsmr_fluvius/p1_smartmeter_fluvius.yaml
+COPY p1_smartmeter_fluvius.py /dsmr_fluvius/p1_smartmeter_fluvius.py
+
+WORKDIR /dsmr_fluvius
+
+############# Development################
+
+FROM base as development
+
+##enable SSH for development
+RUN echo 'root:root' | chpasswd
+
+RUN apt-get upgrade
+RUN apt-get -y install  openssh-server supervisor wget
+RUN sed -i 's/#*PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
+    && sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config \
+    && sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication no/' /etc/ssh/sshd_config
+
+RUN mkdir /var/run/sshd; chmod 755 /var/run/sshd
+RUN mkdir /root/.ssh; chown root. /root/.ssh; chmod 700 /root/.ssh
+RUN ssh-keygen -A
+
+ADD supervisord.conf /etc/supervisor/supervisord.conf
+
+EXPOSE 22
+
+CMD ["/usr/sbin/sshd","-D"]
+
+
+
+############# Production ################# 134 MB
+
+FROM base as production
+
+ENTRYPOINT ["python3","p1_smartmeter_fluvius.py"]
+
+CMD p1_smartmeter_fluvius.py
